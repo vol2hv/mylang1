@@ -33,6 +33,7 @@ public class Example1 {
         } catch (Exception e) {
             log.error("Перехыачено не обработанное исключение ", e);
         }
+        // олимпиадная штучка
         log.info("Из test7() получено {}", test7());
     }
 
