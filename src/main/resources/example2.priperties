@@ -1,0 +1,41 @@
+status = off
+name = PropertiesConfigTest
+
+property.filename = target/test-properties.log
+
+filter.threshold.type = ThresholdFilter
+filter.threshold.level = debug
+
+appender.console.name = STDOUT
+appender.console.type = Console
+appender.console.layout.type = PatternLayout
+appender.console.layout.pattern = %m%n
+
+appender.file.name = File
+appender.file.type = File
+appender.file.fileName = ${filename}
+appender.file.bufferedIO = false
+appender.file.layout.type = PatternLayout
+appender.file.layout.pattern = %d %p %C{1.} [%t] %m%n
+
+appender.list.name = List
+appender.list.type = List
+appender.list.filter.threshold.type = ThresholdFilter
+appender.list.filter.threshold.level = error
+
+logger.test1.name = org.apache.logging.log4j.test1
+logger.test1.level = debug
+logger.test1.additivity = false
+logger.test1.filter.mdc.type = ThreadContextMapFilter
+logger.test1.filter.mdc.pair.type = KeyValuePair
+logger.test1.filter.mdc.pair.key = test
+logger.test1.filter.mdc.pair.value = 123
+logger.test1.appenderRef.console.ref = STDOUT
+
+logger.test2.name = org.apache.logging.log4j.test2
+logger.test2.level = debug
+logger.test2.additivity = false
+logger.test2.appenderRef.file.ref = File
+
+rootLogger.level = error
+rootLogger.appenderRef.console.ref = STDOUT

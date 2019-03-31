@@ -1,7 +1,6 @@
 package com.madv.mylang.exceptions;
 
 import lombok.extern.log4j.Log4j2;
-import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
 //java.lang.ArithmeticException: ArrayIndexOutOfBoundsException
@@ -17,99 +16,107 @@ class SimpleException extends Exception {
         super(s);
     }
 }
-//@Slf4j
 @Log4j2
 public class Example1 {
-//    static final Logger rootLogger = LogManager.getRootLogger();
-//    static final Logger userLogger = LogManager.getLogger(Example1.class);
-//    private  Logger logger = LogManager.getLogger(Example1.class);
     public static void main(String[] args) throws IOException, SimpleException {
-//        test1();      // исключение передается для обработки вверх
-//        test2();      // обработка исключения /
-//        test3();    // выброс существующего исключения
-//        test4();    // свое исключение
-//        test5();    // повторное исключение в catch
-//        test6();   // try-with-resources и catch обрабатывающий несколько исключений
-        System.err.println(test7());
+        try {
+            notHandleException();      // исключение не обрабатывается и передается для обработки вверх
+        } catch (Exception e) {
+            log.error("Перехыачено не обработанное исключение ", e);
+        }
+        processingOrder (); // порядок обработки исключения
+        usefulMethods ();   // полезные методы класса исключений
+        throwExeption();    // выброс существующего исключения
+        myExeption();    // свое исключение
+        try {
+            throwReExeption();    // повторное исключение в catch
+        } catch (Exception e) {
+            log.error("Перехыачено не обработанное исключение ", e);
+        }
+        log.info("Из test7() получено {}", test7());
+    }
+
+    // исключение не обрабатывается и передается для обработки вверх
+    private static void notHandleException() throws SimpleException {
+        log.info("");
+        throw new SimpleException("Простое но свое исключение");
+    }
+
+    private static void processingOrder (){
+        int [] ar ={1,2,3,4,5};
+        try{
+            int a = ar[4];
+            a = ar[5];
+        }catch(Exception ex){
+            log.info("сюда попааем только поошибке.");
+            log.error("Sorry, something wrong!", ex);
+        } finally {
+            log.info("Этот блок выполняется всегда");
+        }
+
+    }
+
+    private static void usefulMethods (){
+        try {
+            throw new Exception("My Exception");
+        } catch(Exception e) {
+            log.error("Caught Exception");
+            log.error("getMessage():" + e.getMessage());
+            log.error("getLocalizedMessage():" +
+                    e.getLocalizedMessage());
+            log.error("toString():" + e);
+            log.error("printStackTrace():");
+            e.printStackTrace(System.out);
+        }
+
+
+    }
+
+    // выброс существующего исключения
+    private static void throwExeption() {
+        int[] arr = {3};
+        try {
+            for (int i = 0; i < 2; i++) {
+                if ((i < 0) || i >= arr.length) {
+                    throw new ArrayIndexOutOfBoundsException("Не лезь за пределы массива ламер.");
+                }
+            }
+        } catch (Exception e) {
+            log.error("Перехыачено исключение ", e);
+        }
+    }
+
+    // свое исключение
+    private static void myExeption()  {
+        try {
+            throw new SimpleException("Простое но свое исключение");
+        } catch (Exception e) {
+            log.error("Перехыачено свое исключение ", e);
+        }
+    }
+
+    // повторное исключение в catch
+    private static void throwReExeption() {
+        int[] arr = {3};
+
+        try {
+            int i = arr[5];
+        } catch (Exception e) {
+            log.error("Перехыачено первое исключение", e);
+            throw e; // это же исключение выбрасывается повторно
+//            throw new SimpleException("Повторное исключение при обработке первого");
+        }
     }
 
     private static int test7() {
         try {
-            System.err.println("Блок Try");
             throw new ArrayIndexOutOfBoundsException();
-        } catch (Exception e) {
-            System.err.println("Блок Catch");
+        }catch (Exception e) {
+            log.error("Перехыачено свое исключение ", e);
             return 10;
         } finally {
-            System.err.println("Блок finally");
+            log.info("Блок finally");
             return 100;
-        }
-    }
-
-    // исключение передается для обработки вверх
-    private static void test1() throws IOException {
-        final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Введите делитель: ");
-        int x = Integer.parseInt(reader.readLine());
-        System.out.printf("25/x= %d", 25 / x);
-    }
-
-    // обработка исключения
-    private static void test2() {
-        int[] arr = {3};
-        for (int i = 0; i < 2; i++) {
-            try {
-                System.out.println(arr[i]);
-                System.err.println("Блок Try");
-            } catch (Exception e) {
-                System.err.println("Блок Catch");
-                e.printStackTrace();
-            } finally {
-                System.err.println("Блок finally");
-            }
-        }
-    }
-
-    // выброс существующего исключения
-    private static void test3() {
-        int[] arr = {3};
-        for (int i = 0; i < 2; i++) {
-            if ((i < 0) || i >= arr.length) {
-                throw new ArrayIndexOutOfBoundsException("Не лезь за пределы массива ламер.");
-            }
-            System.out.println(arr[i]);
-        }
-
-    }
-    private static void test4() throws SimpleException {
-        throw new SimpleException("Простое но свое исключение");
-    }
-
-    // повторное исключение в catch
-    private static void test5() throws SimpleException, FileNotFoundException {
-        int[] arr = {3};
-
-        try {
-            System.out.println(arr[5]);
-            System.err.println("Блок Try");
-        } catch (Exception e) {
-            System.err.println("Блок Catch");
-            e.printStackTrace();
-           throw new ArrayIndexOutOfBoundsException();
-//            throw new SimpleException("Повторное исключение при обработке первого");
-        } finally {
-            System.err.println("Блок finally");
-        }
-
-    }
-
-    private static void test6() {
-        try (BufferedReader in = new BufferedReader(new FileReader("d:\\_Java\\ProjectIJ\\SeaFight\\ship1.txt"));) {
-            test4();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException | SimpleException ex) { // два исключения сразу
-            ex.printStackTrace();
         }
     }
 }
