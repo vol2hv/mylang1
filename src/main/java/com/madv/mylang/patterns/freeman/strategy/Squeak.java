@@ -1,0 +1,7 @@
+package com.madv.mylang.patterns.freeman.strategy;
+
+public class Squeak implements QuackBehavior {
+	public void quack() {
+		System.out.println("Squeak");
+	}
+}
