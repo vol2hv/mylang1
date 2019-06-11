@@ -1,4 +1,4 @@
-package com.madv.mylang;
+package com.madv.mylang.reflection;
 
 class A {}
 
