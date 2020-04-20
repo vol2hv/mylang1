@@ -1,8 +1,5 @@
 package com.madv.mylang;
 
-/**
- * Created by madv on 09.01.2017.
- */
 public class MetodParametr {
     public static void main(String[] args) {
         SampleInterface metod=(x)->x*x+4;

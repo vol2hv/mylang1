@@ -8,9 +8,6 @@ import java.util.Arrays;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
-/**
- * Created by madv on 18.01.2017.
- */
 public class Assertions {
     @Test
     public void testAssertArrayEquals() {
