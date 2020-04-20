@@ -1,14 +1,13 @@
 package com.madv.mylang.functional_interfaces;
 
 import org.junit.Test;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.*;
-
 import static java.lang.StrictMath.sqrt;
 import static org.junit.Assert.*;
 
+@FunctionalInterface
 interface Formula {
     double calculate(double a);
 
