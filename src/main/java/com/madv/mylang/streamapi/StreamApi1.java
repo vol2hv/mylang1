@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 
 public class StreamApi1 {
     public static void main(String[] args) {
-//        createStreams();
+        createStreams();
         masterMetods();
     }
 

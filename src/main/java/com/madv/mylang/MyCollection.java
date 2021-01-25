@@ -1,8 +1,8 @@
 package com.madv.mylang;
 
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 /**

@@ -1,8 +1,9 @@
 package com.madv.mylang.networking.datagram;
 
-import java.io.*;
-import java.net.*;
-import java.util.*;
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 
 public class QuoteClient {
     public static void main(String[] args) throws IOException {

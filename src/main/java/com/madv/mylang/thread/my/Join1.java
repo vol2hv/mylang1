@@ -1,38 +1,24 @@
-package com.madv.mylang.thread;
+package com.madv.mylang.thread.my;
 
-/**
- * Created by madv on 26.01.2017.
- */
-public class Wait {
-    static final Object key = new Object();
-
+public class Join1 {
     public static void main(String[] args) throws InterruptedException {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 for (int i = 0; i < 10; i++) {
                     System.err.println(i);
-                    if (i == 3) {
-                        synchronized (key) {
-                            key.notifyAll(); // IllegalMonitorStateException
-                        }
-                    }
                     try {
                         Thread.sleep(100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
-                // не забыть разбудить main!
             }
         });
 
         System.err.println("start...");
         thread.start();
-
-        synchronized (key) {
-            key.wait(); // отдает ключ! IllegalMonitorStateException
-        }
+        thread.join();  // Ждем смерти запущенного потока
         System.err.println("finish...");
     }
 }
