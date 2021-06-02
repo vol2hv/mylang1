@@ -1,5 +1,7 @@
 package com.madv.mylang.thread.my;
 
+import java.util.concurrent.ExecutorService;
+
 import static com.madv.mylang.auxiliary.UtilAdv.printfPlus;
 import static java.lang.Math.sin;
 
@@ -23,6 +25,7 @@ public class HelloThread extends Thread {
         }catch (InterruptedException e){
         }
     }
+    ExecutorService es;
 
     public static void main(String[] args) {
         // метод run() запуск в том же потоке
@@ -41,6 +44,7 @@ public class HelloThread extends Thread {
         };
         // Главный поток запускается сам
         Thread t = Thread.currentThread(); // получаем главный поток
+
         System.out.println(t.toString()); // main
 
         // запус потокока на основе наследования от Thread
@@ -51,6 +55,7 @@ public class HelloThread extends Thread {
         new Thread(r,"MyThread").start();
 
         new Thread(r, "NewThread").start();
+
         printfPlus("Main thread finished...\n");
     }
 }

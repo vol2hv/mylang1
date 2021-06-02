@@ -17,6 +17,15 @@ public class Main {
         Iterator<Integer> iterator= set.iterator();
         while (iterator.hasNext()) System.out.println(iterator.next());
 
+        set.forEach(x -> System.out.println(x));
+        System.out.println("-------------------------------");
+        set.forEach(x -> {if (x %2 ==0){
+            System.out.println(x);
+        }});
+        System.out.println("-------------------------------");
+        set.forEach(System.out::println);
+
+
         // в ручную на половину
         // при удаление элементов из коллекции нельзя примерять цикл foreach
         for (Iterator<Integer> i = set.iterator(); i.hasNext();) {

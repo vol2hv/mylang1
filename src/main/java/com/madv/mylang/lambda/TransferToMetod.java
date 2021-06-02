@@ -6,10 +6,16 @@ package com.madv.mylang.lambda;
 import java.util.Arrays;
 import java.util.Collections;
 
+import static java.lang.Math.pow;
+
 // функциональный интерфейс
 interface Expression{
     boolean isEqual(int n);
 }
+interface Polynom {
+    int polynom(int ...x);
+}
+
 // класс, в котором определены методы
 class ExpressionHelper{
 
@@ -25,8 +31,16 @@ class ExpressionHelper{
 }
 
 public class TransferToMetod {
-
+    static Polynom p = (x) -> {
+        int power = x.length-1;
+        int rez = 0;
+        for (int i = 0; i <x.length ; i++) {
+            rez += x[i] * (int) pow (10, power-i);
+        }
+        return rez;
+    };
     public static void main(String[] args) {
+        System.out.println(p.polynom(2, 3, 4));
 
         int[] nums = { -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5};
         System.out.println(sum(ExpressionHelper::isEven, nums));
